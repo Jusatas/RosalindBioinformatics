@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+# Takes in an index and the needed length,
+# returns a DNA pattern that is decoded from
+# the index.
+
+import sys
+
+
+def number_to_pattern(index, length):
+    nuc_values = {
+        0: "A",
+        1: "C",
+        2: "G",
+        3: "T"
+    }
+    pattern = []
+
+    for _ in range((length)):
+        num = index
+
+        index = index // 4  # integer division
+        remainder = num % 4
+        letter = nuc_values[remainder]
+        pattern.insert(0, letter)  # prepends the letter
+
+    return "".join(pattern)  # return a string
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Please provide the encoded index and desired length")
+    else:
+        index, length = map(int, sys.argv[1:3])
+        print(number_to_pattern(index, length))
