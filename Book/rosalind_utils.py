@@ -16,3 +16,61 @@ def read_input(arg):
 
     else:
         return arg.strip()
+
+
+def computing_frequencies(text, k):
+    """Takes in text and length of a pattern (k).
+    Outputs how often all possible patterns are present."""
+
+    frequency_array = []
+    for i in range(pow(4, k)):  # goes up to 4^k - 1
+        frequency_array.append(0)
+
+    for i in range(len(text)-k+1):
+        pattern = text[i:i+k]
+        j = pattern_to_num(pattern)
+        frequency_array[j] += 1
+
+    return frequency_array
+
+
+def pattern_to_num(pattern):
+    """Takes in a pattern and returns the index that is used
+    to find the pattern in all possible patterns of ACGT"""
+
+    nuc_values = {
+        "A": 0,
+        "C": 1,
+        "G": 2,
+        "T": 3
+    }
+    num = 0
+
+    start_i = len(pattern)
+    i = start_i
+    for letter in pattern:
+        i -= 1
+        num += nuc_values[letter] * pow(4, i)
+
+    return num
+
+
+def number_to_pattern(index, length):
+    nuc_values = {
+        0: "A",
+        1: "C",
+        2: "G",
+        3: "T"
+    }
+    pattern = []
+
+    for _ in range((length)):
+        num = index
+
+        index = index // 4  # integer division
+        remainder = num % 4
+        letter = nuc_values[remainder]
+        pattern.insert(0, letter)  # prepends the letter
+
+    return "".join(pattern)  # return a string
+
