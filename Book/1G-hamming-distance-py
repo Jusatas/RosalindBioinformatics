@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+import argparse
+from rosalind_utils import read_input
+import sys
+
+
+def get_hamming_distance(string1: str, string2: str) -> int:
+    """Takes in two DNA strings, return the hamming distance
+    between them - how many mismatches there are."""
+    mismatches = 0
+    for i in range(len(string1)):
+        if string1[i] != string2[i]:
+            mismatches += 1
+    return mismatches
+
+
+def main():
+    parser = argparse.ArgumentParser(
+            description="Find the hamming distance of two strings")
+
+    parser.add_argument("string1", help="First DNA string or file")
+    parser.add_argument("string2", help="Second DNA string or file")
+
+    args = parser.parse_args()
+    string1 = read_input(args.string1)
+    string2 = read_input(args.string2)
+
+    if len(string1) != len(string2):
+        sys.exit("Error: the strings must be of equal length.")
+
+    print(get_hamming_distance(string1, string2))
+
+
+if __name__ == "__main__":
+    main()
