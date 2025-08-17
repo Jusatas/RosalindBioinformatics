@@ -18,6 +18,16 @@ def read_input(arg):
         return arg.strip()
 
 
+def find_hamming(string1: str, string2: str) -> int:
+    """Takes in two DNA strings, return the hamming distance
+    between them - how many mismatches there are."""
+    mismatches = 0
+    for i in range(len(string1)):
+        if string1[i] != string2[i]:
+            mismatches += 1
+    return mismatches
+
+
 def computing_frequencies(text, k):
     """Takes in text and length of a pattern (k).
     Outputs how often all possible patterns are present."""
