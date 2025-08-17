@@ -4,6 +4,22 @@ from rosalind_utils import find_hamming, read_input
 import argparse
 
 
+def match(pattern: str, text: str, mismatch_count: int):
+    """Return all starting positions where pattern appears
+    as a substring of text with at most mismatch_count mismatches
+    pass"""
+
+    matches = []
+    pattern_len = len(pattern)
+
+    for i in range(len(text) - pattern_len):
+        substring = text[i:i + pattern_len]
+        if find_hamming(substring, pattern) <= mismatch_count:
+            matches.append(i)
+
+    return matches
+
+
 def main():
     parser = argparse.ArgumentParser(
             description="Find starting positions where pattern is\
@@ -21,22 +37,6 @@ def main():
 
     result = match(pattern, text, mismatch_count)
     print(" ".join(map(str, result)))
-
-
-def match(pattern: str, text: str, mismatch_count: int):
-    """Return all starting positions where pattern appears
-    as a substring of text with at most mismatch_count mismatches
-    pass"""
-
-    matches = []
-    pattern_len = len(pattern)
-
-    for i in range(len(text) - pattern_len):
-        substring = text[i:i + pattern_len]
-        if find_hamming(substring, pattern) <= mismatch_count:
-            matches.append(i)
-
-    return matches
 
 
 if __name__ == "__main__":
