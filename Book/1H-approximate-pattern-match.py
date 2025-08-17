@@ -5,7 +5,6 @@ import argparse
 
 
 def main():
-    pass
     parser = argparse.ArgumentParser(
             description="Find starting positions where pattern is\
                     inside text with at most mismatch_count mismatches")
