@@ -18,6 +18,28 @@ def read_input(arg):
         return arg.strip()
 
 
+def generate_neighborhood(pattern: str, distance: int) -> set[str]:
+    """ Takes in a string pattern and returns a set of all k-mers that
+    have a hamming distance smaller than integer distance"""
+    if distance == 0:
+        return {pattern}
+
+    if len(pattern) == 1:
+        return {'A', 'C', 'G', 'T'}
+    neighborhood = set()
+
+    suffix_neighbors = generate_neighborhood(pattern[1:], distance)
+
+    for neighbor in suffix_neighbors:
+        if find_hamming(pattern[1:], neighbor) < distance:
+            for nuc in ['A', 'C', 'G', 'T']:
+                neighborhood.add(nuc + neighbor)
+        else:
+            neighborhood.add(pattern[0] + neighbor)   
+    
+    return neighborhood
+
+
 def find_hamming(string1: str, string2: str) -> int:
     """Takes in two DNA strings, return the hamming distance
     between them - how many mismatches there are."""
