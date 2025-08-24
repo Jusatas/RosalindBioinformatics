@@ -41,7 +41,7 @@ def main():
     distance = int(read_input(args.distance))
 
     result = generate_neighborhood(pattern, distance)
-    print(" ".join(sorted(result)))
+    print("\n".join(sorted(result)))
 
 
 if __name__ == "__main__":
