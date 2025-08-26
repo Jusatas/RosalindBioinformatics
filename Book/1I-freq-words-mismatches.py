@@ -25,19 +25,19 @@ def find_words(text: str, wordlength: int, mismatches: int) -> set[str]:
 
     neighbors_amount = len(neighbors)
     index = [0] * neighbors_amount
-    amount = [1] * len(neighbors)
-    for i in range(len(neighbors)):
+    amount = [1] * neighbors_amount
+    for i in range(neighbors_amount):
         pattern = neighbors[i]
         index[i] = pattern_to_num(pattern)
 
     sorted_index = sorted(index)
-    for i in range(len(neighbors) - 1):
+    for i in range(neighbors_amount - 1):
         if sorted_index[i] == sorted_index[i+1]:
             amount[i+1] = amount[i] + 1
 
     maxAmount = max(amount)
 
-    for i in range(len(neighbors) - 1):
+    for i in range(neighbors_amount - 1):
         if amount[i] == maxAmount:
             pattern = number_to_pattern(sorted_index[i], wordlength)
             freq_words.add(pattern)
