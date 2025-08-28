@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 
-# Takes in a DNA string and prints the reverse complement of it.
-
+# Takes in a raw string, file or stdin DNA string,
+# Finds and returns the rever complement
 import sys
 
 
-def reverse_complement(pattern):
+def reverse_complement(pattern: str) -> str:
+    """ Takes in a string representing a DNA sequence, 
+    returns its reverse complement string """
+
     complemented = "".join(map(complement, pattern))
     return complemented[::-1]
 
 
-def complement(nucleotide):
+def complement(nucleotide: str) -> str:
+    """Takes in a single character string representing
+    a nucleotide, returns its complement"""
+
     complement_mapping = {
         "A": "T",
         "C": "G",

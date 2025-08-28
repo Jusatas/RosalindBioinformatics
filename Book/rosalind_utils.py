@@ -18,6 +18,27 @@ def read_input(arg):
         return arg.strip()
 
 
+def reverse_complement(pattern: str) -> str:
+    """ Takes in a string representing a DNA sequence, 
+    returns its reverse complement string """
+
+    complemented = "".join(map(complement, pattern))
+    return complemented[::-1]
+
+
+def complement(nucleotide: str) -> str:
+    """Takes in a single character string representing
+    a nucleotide, returns its complement"""
+
+    complement_mapping = {
+        "A": "T",
+        "C": "G",
+        "T": "A",
+        "G": "C"
+    }
+    return complement_mapping[nucleotide]
+
+
 def generate_neighborhood(pattern: str, distance: int) -> set[str]:
     """ Takes in a string pattern and returns a set of all k-mers that
     have a hamming distance smaller than integer distance"""
