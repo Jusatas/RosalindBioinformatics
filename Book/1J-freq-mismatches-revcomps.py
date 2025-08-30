@@ -8,7 +8,7 @@
 
 import argparse
 from rosalind_utils import (read_input, pattern_to_num, 
-    number_to_pattern, generate_neighborhood)
+    number_to_pattern, generate_neighborhood, reverse_complement)
 
 def find_words(text: str, wordlength: int, mismatches: int) -> set[str]:
     """ Takes in a string of text, finds the most frequent words of length
@@ -16,11 +16,11 @@ def find_words(text: str, wordlength: int, mismatches: int) -> set[str]:
     reverse complements. Returns them in a set"""
 
     freq_words = set()
-    neighbordhoods = [] # List of lists of words and their similar neighbors
+    neighborhoods = [] # List of lists of words and their similar neighbors
     neighbors = [] # Flattened neighborhoods list
     for i in range(len(text) - wordlength + 1):
         neighborhood = generate_neighborhood(text[i:i+wordlength], mismatches)
-        neighbordhoods.append(neighborhood)
+        neighborhoods.append(neighborhood)
         
         for neighbor in neighborhood:
             neighbors.append(neighbor)
@@ -30,6 +30,7 @@ def find_words(text: str, wordlength: int, mismatches: int) -> set[str]:
     amount = [1] * neighbors_amount
     for i in range(neighbors_amount):
         pattern = neighbors[i]
+        pattern = min(pattern, reverse_complement(pattern))
         index[i] = pattern_to_num(pattern)
 
     sorted_index = sorted(index)
@@ -43,6 +44,8 @@ def find_words(text: str, wordlength: int, mismatches: int) -> set[str]:
         if amount[i] == maxAmount:
             pattern = number_to_pattern(sorted_index[i], wordlength)
             freq_words.add(pattern)
+            rev_comp_pattern = reverse_complement(pattern)
+            freq_words.add(rev_comp_pattern)
 
     return freq_words
 
